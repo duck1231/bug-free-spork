@@ -1,0 +1,316 @@
+<title>Brothers of Chaos</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Rubik:wght@500;800&display=swap">
+<style>
+/* Layout: en serietidning – omslag, rollista, avsnittsflikar, rutor i ett 2-kolumnsraster som staplas på mobil. Ett medvetet tryckt "papperslook", samma i ljust och mörkt läge. */
+:root{
+  --paper:#f7f4e9; --ink:#17121f; --lime:#b6f45a; --lime-deep:#5fae1f;
+  --purple:#5b1a8c; --magenta:#c2306b; --orange:#d98a3d; --sky:#e7defa;
+  --display:"Bangers","Impact",system-ui,sans-serif;
+  --body:"Comic Neue","Comic Sans MS","Trebuchet MS",system-ui,sans-serif;
+  --ui:"Rubik",system-ui,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.45;
+  background-image:radial-gradient(rgba(91,26,140,.08) 1.2px,transparent 1.3px);background-size:9px 9px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 64px}
+h1,h2,h3{font-family:var(--display);letter-spacing:.04em;font-weight:400;text-wrap:balance;margin:0}
+a{color:var(--purple)}
+:focus-visible{outline:3px solid var(--magenta);outline-offset:3px}
+
+/* Omslag */
+.hero{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:28px;align-items:center}
+.hero img{width:100%;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--purple);transform:rotate(-1.5deg);display:block}
+.issue{font-family:var(--ui);font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--purple)}
+.hero h1{font-size:clamp(3rem,9vw,5.6rem);line-height:.9;color:var(--purple);-webkit-text-stroke:2px var(--ink);text-shadow:4px 4px 0 var(--lime-deep)}
+.hero .sv{font-family:var(--display);font-size:1.6rem;color:var(--lime-deep);-webkit-text-stroke:.6px var(--ink)}
+.hero p{max-width:60ch}
+.tag{display:inline-block;background:var(--ink);color:var(--lime);font-family:var(--ui);font-weight:500;font-size:.78rem;padding:4px 10px;letter-spacing:.06em}
+
+/* Rollista */
+section{margin-top:56px}
+.sec-h{font-size:2.4rem;color:var(--ink);margin-bottom:16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sec-h small{font-family:var(--ui);font-size:.85rem;letter-spacing:.08em;color:var(--purple);text-transform:uppercase}
+.cast{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:16px}
+.card{background:#fff;border:3px solid var(--ink);padding:14px;display:grid;grid-template-columns:72px minmax(0,1fr);gap:12px;align-items:start}
+.card h3{font-size:1.5rem;line-height:1}
+.card .role{font-family:var(--ui);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--magenta);font-weight:800}
+.card p{margin:6px 0 0;font-size:.95rem}
+.av{width:72px;height:72px;border:3px solid var(--ink);border-radius:50%;object-fit:cover;background:var(--sky);display:grid;place-items:center;font-family:var(--display);font-size:2rem;overflow:hidden}
+.card.main{grid-column:span 1;background:var(--lime)}
+.quote{font-style:italic;font-weight:700;margin-top:6px!important}
+
+/* Avsnittsflikar */
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.tabs button{font-family:var(--display);font-size:1.15rem;letter-spacing:.05em;background:#fff;color:var(--ink);border:3px solid var(--ink);padding:8px 14px;cursor:pointer;box-shadow:3px 3px 0 var(--ink);transition:transform .1s}
+.tabs button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+.tabs button[aria-selected="true"]{background:var(--purple);color:#fff}
+.tabs button span{font-family:var(--ui);font-size:.7rem;display:block;letter-spacing:.1em;opacity:.8}
+
+.ep-head{background:var(--ink);color:#fff;padding:18px 20px;border:4px solid var(--ink);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:end}
+.ep-head h2{font-size:clamp(2rem,6vw,3.2rem);color:var(--lime);line-height:1}
+.ep-head .no{font-family:var(--ui);font-weight:800;letter-spacing:.14em;font-size:.8rem;color:#d9c6ff;text-transform:uppercase}
+.ep-head p{margin:6px 0 0;max-width:60ch;color:#eee}
+.shards{display:flex;gap:6px;align-items:center;font-family:var(--ui);font-size:.75rem;color:#d9c6ff;letter-spacing:.08em}
+.shard{width:16px;height:22px;clip-path:polygon(50% 0,100% 35%,75% 100%,25% 100%,0 35%);background:#3a2b4d}
+.shard.on{background:linear-gradient(160deg,#f0d1ff,#a64cf0 55%,#5b1a8c)}
+
+/* Rutor */
+.page{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:14px;background:var(--ink);border:4px solid var(--ink);border-top:0}
+.panel{position:relative;min-height:290px;border:3px solid var(--ink);background:#fff;overflow:hidden;display:flex;flex-direction:column;padding:12px;gap:8px}
+.panel.w{grid-column:span 2}
+.num{position:absolute;right:8px;bottom:6px;font-family:var(--ui);font-size:.65rem;color:rgba(0,0,0,.45);font-weight:800;z-index:3}
+.cap{background:#fff6b8;border:2px solid var(--ink);font-family:var(--ui);font-weight:500;font-size:.82rem;padding:6px 9px;max-width:85%;position:relative;z-index:2;align-self:flex-start;box-shadow:2px 2px 0 var(--ink)}
+.bubbles{display:flex;flex-direction:column;gap:8px;position:relative;z-index:2}
+.b{background:#fff;border:2.5px solid var(--ink);border-radius:20px;padding:7px 13px;max-width:88%;font-size:1rem;position:relative;line-height:1.3}
+.b.r{align-self:flex-end}
+.b::after{content:"";position:absolute;bottom:-11px;left:22px;width:16px;height:12px;background:#fff;border:2.5px solid var(--ink);border-top:0;border-left:0;transform:skewX(-30deg)}
+.b.r::after{left:auto;right:22px;transform:skewX(30deg);border-right:0;border-left:2.5px solid var(--ink)}
+.b.t{border-style:dashed;border-radius:28px;font-style:italic;background:#f4f0ff}
+.b.t::after{display:none}
+.b.y{border-width:3.5px;font-family:var(--display);font-size:1.25rem;letter-spacing:.03em;border-radius:6px}
+.b.y::after{display:none}
+.who{font-family:var(--ui);font-weight:800;font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;display:block;color:var(--purple)}
+.stage{margin-top:auto;display:flex;align-items:flex-end;gap:10px;position:relative;z-index:1;min-height:92px;flex-wrap:wrap}
+.stage .av{width:84px;height:84px;box-shadow:3px 3px 0 var(--ink)}
+.stage .chip{display:flex;flex-direction:column;align-items:center;gap:2px}
+.stage .chip small{font-family:var(--ui);font-size:.62rem;font-weight:800;background:var(--ink);color:#fff;padding:1px 6px;letter-spacing:.06em;text-transform:uppercase}
+.fx{position:absolute;z-index:2;right:10px;top:46%;font-family:var(--display);font-size:clamp(2.2rem,6vw,3.6rem);color:#ffe14d;-webkit-text-stroke:2px var(--ink);text-shadow:4px 4px 0 var(--magenta);transform:rotate(-8deg);pointer-events:none;letter-spacing:.03em}
+.fx.l{right:auto;left:14px}
+.end{grid-column:span 2;background:var(--lime);border:3px solid var(--ink);padding:14px 18px;font-family:var(--display);font-size:1.6rem;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}
+.end button{font-family:var(--display);font-size:1.1rem;background:var(--ink);color:var(--lime);border:0;padding:8px 14px;cursor:pointer}
+
+/* Scener: bakgrunder per plats */
+.s-rymd{background:radial-gradient(circle at 80% 20%,#7d3cc9 0,transparent 35%),radial-gradient(#fff 1px,transparent 1.5px) 0 0/34px 34px,#120a24}
+.s-krasch{background:repeating-conic-gradient(from 0deg at 60% 60%,#ffcf3d 0 8deg,#ff7a2e 8deg 16deg)}
+.s-tradgard{background:linear-gradient(#24164a 0 55%,#2f6b2b 55%)}
+.s-dag{background:linear-gradient(#bfe6ff 0 60%,#7cc45a 60%)}
+.s-rum{background:linear-gradient(#e9d9ff 0 70%,#b58a5e 70%)}
+.s-kok{background:repeating-linear-gradient(90deg,#fff 0 30px,#dff3e8 30px 60px)}
+.s-kontor{background:linear-gradient(#26313b,#0d1217)}
+.s-skola{background:linear-gradient(#ffe9c2 0 65%,#c99662 65%)}
+.s-gympa{background:linear-gradient(#3b1a6e,#7e2fd0 40%,#2fd8a0 75%,#123)}
+.s-bageri{background:repeating-linear-gradient(45deg,#ffe3c4 0 18px,#fff1df 18px 36px)}
+.s-garage{background:linear-gradient(#5d6670 0 70%,#3d434a 70%)}
+.s-simhall{background:linear-gradient(#e6f7ff 0 45%,#41b5e6 45%)}
+.s-bas{background:repeating-linear-gradient(0deg,#1a2230 0 22px,#222c3d 22px 24px)}
+.s-natt{background:radial-gradient(circle at 75% 20%,#fff7c2 0 18px,transparent 19px),linear-gradient(#0f1636,#2b1c4f)}
+.s-holo{background:radial-gradient(circle,#b6f45a 0,#3e9e1d 40%,#0b2405 80%)}
+.s-blixt{background:repeating-conic-gradient(from 0deg at 50% 50%,#c86bff 0 10deg,#ffffff 10deg 20deg)}
+.dark .cap{background:#fff6b8}
+
+/* Bildprompter */
+.prompts{display:grid;gap:14px}
+.pbox{background:#fff;border:3px solid var(--ink);padding:14px}
+.pbox h3{font-size:1.4rem;margin-bottom:6px}
+.pbox pre{white-space:pre-wrap;font-size:.85rem;background:#f1ecff;border:2px dashed var(--purple);padding:10px;margin:8px 0 0;font-family:ui-monospace,Menlo,Consolas,monospace;overflow-x:auto}
+.pbox button{font-family:var(--ui);font-weight:800;font-size:.75rem;letter-spacing:.06em;background:var(--purple);color:#fff;border:0;padding:6px 12px;cursor:pointer;margin-top:8px}
+.tools{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.tools div{background:var(--sky);border:2px solid var(--ink);padding:10px 12px;font-size:.92rem}
+.tools b{font-family:var(--ui)}
+ol.steps{padding-left:22px;max-width:70ch}
+ol.steps li{margin-bottom:6px}
+
+@media (max-width:720px){
+  .hero{grid-template-columns:1fr}
+  .hero img{max-width:280px;margin:0 auto}
+  .page{grid-template-columns:1fr;padding:10px}
+  .panel.w,.end{grid-column:span 1}
+  .panel{min-height:250px}
+  .stage .av{width:66px;height:66px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@keyframes pop{from{transform:scale(.6) rotate(-8deg);opacity:.2}to{transform:scale(1) rotate(-8deg);opacity:1}}
+.fx{animation:pop .35s ease-out both}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <img src="bilder/omslag.jpg" alt="Omslaget: Vex i svart huvtröja och Zippo med stjärnögon framför ett grönt kaosvirvel">
+    <div>
+      <div class="issue">Nr 1 · Säsong 1 · 5 avsnitt</div>
+      <h1>Brothers of Chaos</h1>
+      <div class="sv">Kaosbröderna från Glorbon-7</div>
+      <p>Två utomjordiska bröder kraschar sitt rymdskepp i en trädgård i den lilla svenska staden Mossby. Kaoskristallen som driver skeppet splittras i fem skärvor och sprids över stan. Nu måste de hitta alla fem, utan att bli upptäckta av en hemlig agent, en misstänksam katt och Elsas mamma.</p>
+      <span class="tag">Läs ett avsnitt i taget · ca 11 rutor per avsnitt</span>
+    </div>
+  </header>
+
+  <section aria-labelledby="cast-h">
+    <h2 class="sec-h" id="cast-h">Rollista <small>vem är vem</small></h2>
+    <div class="cast" id="cast"></div>
+  </section>
+
+  <section aria-labelledby="ep-h">
+    <h2 class="sec-h" id="ep-h">Avsnitten <small>följ jakten på de fem skärvorna</small></h2>
+    <div class="tabs" role="tablist" id="tabs"></div>
+    <article id="episode" aria-live="polite"></article>
+  </section>
+
+  <section aria-labelledby="ai-h">
+    <h2 class="sec-h" id="ai-h">Gör riktiga serierutor <small>gratis AI-verktyg</small></h2>
+    <p style="max-width:70ch">Manus, namn och handling är klara. Rutorna ovan använder dina egna figurer från omslaget. Vill du rita om varje ruta som en färdig bild kan du använda gratis bildverktyg. Ladda upp ditt omslag som referensbild varje gång, så ser Vex och Zippo likadana ut i alla rutor. Prompterna är på engelska eftersom bildverktygen förstår engelska bäst.</p>
+    <div class="tools">
+      <div><b>Google Gemini</b><br>Gratis. Klarar att ta ditt omslag som referens och hålla figurerna lika.</div>
+      <div><b>Microsoft Designer / Bing Image Creator</b><br>Gratis med Microsoft-konto. Bra för omslag och stora rutor.</div>
+      <div><b>Leonardo.ai</b><br>Gratis dagliga poäng. Har "Character Reference" för samma figur i flera bilder.</div>
+      <div><b>Canva / Pixton</b><br>Lägg in bilderna och pratbubblorna och gör färdiga sidor.</div>
+    </div>
+    <ol class="steps">
+      <li>Klistra in <b>stilprompten</b> och ladda upp omslaget.</li>
+      <li>Lägg till en ruta-prompt nedan (en bild åt gången).</li>
+      <li>Skriv pratbubblorna själv i Canva efteråt. AI stavar ofta fel i text.</li>
+    </ol>
+    <div class="prompts" id="prompts"></div>
+  </section>
+</div>
+
+<script>
+const IMG={v:"bilder/vex-ansikte.jpg",z:"bilder/zippo-ansikte.jpg"};
+const P={
+  v:{n:"Vex",bg:"#b9c7b4"}, z:{n:"Zippo",bg:"#d98a3d"},
+  e:{n:"Elsa",bg:"#ffd36b",i:"E"}, s:{n:"Agent Stål",bg:"#8a97a6",i:"S"},
+  m:{n:"Fröken Mjau",bg:"#f3f3f3",i:"M"}, g:{n:"Tant Gun",bg:"#f6b8c8",i:"G"},
+  k:{n:"Kevin",bg:"#9ad0ff",i:"K"}, j:{n:"Domaren",bg:"#ddd",i:"D"},
+  ma:{n:"Mamma Lind",bg:"#ffb27a",i:"L"}, mo:{n:"Mamma Glorb",bg:"#b6f45a",i:"!"}
+};
+
+const CAST=[
+  {k:"v",role:"Storebror · 312 år",d:"Lugn, lat i blicken och övertygad om att han är ett geni. Hans planer går alltid fel, men han skulle gå genom eld för sin lillebror. Det får bara ingen veta.",q:"”Lugn. Jag har en plan.”",main:1},
+  {k:"z",role:"Lillebror · 9 år (i jordår)",d:"Stjärnögon, noll bromsar. Äter allt, trycker på alla knappar och tycker att varje katastrof är det roligaste som hänt.",q:"”KAOS-TAJM!”",main:1},
+  {k:"e",role:"Bästa vän · 11 år",d:"Uppfinnare med glasögon och verktygsbälte. Byggde Prylometern, som piper när en kaosskärva är nära."},
+  {k:"s",role:"Hemlig agent",d:"Gunilla Stål från SBOF, Statens Byrå för Oförklarliga Fenomen. Bär solglasögon inomhus och alltid en termos kaffe."},
+  {k:"m",role:"Grannens katt",d:"Den enda i Mossby som genomskådar ”hundarna” direkt. Stirrar. Hela tiden."},
+  {k:"g",role:"Bullmästarinna · 82 år",d:"Tant Gun Kardemumma har vunnit Mossbys bulltävling 30 år i rad."}
+];
+
+const EP=[
+{t:"Kraschen i Mossby",sum:"Bröderna kraschar på jorden, träffar Elsa och hittar sin första skärva i en trädgårdstomte.",sh:1,panels:[
+ {s:"rymd",c:["z","v"],cap:"Långt ut i rymden, ombord på familjeskeppet Kaoskometen…",d:[["z","Vex! Vad gör den här röda knappen?"],["v","Rör den INTE.",1]],fx:"KLICK"},
+ {s:"krasch",c:["v","z"],cap:"Den röda knappen gjorde precis det man kunde vänta sig.",d:[["z","WIIIIHOOOO!","y"],["v","ZIPPOOOO!","y",1]],fx:"BRAAAKA-BOOM",w:1},
+ {s:"tradgard",c:["v","z"],cap:"Mossby, Sverige. 02:14 en tisdagsnatt.",d:[["v","Okej. Lugn. Jag har en plan."],["z","Är planen att vi brinner lite?",0,1]]},
+ {s:"tradgard",c:["v","z"],d:[["v","Kaoskristallen… den har splittrats i fem skärvor. Utan dem kommer vi aldrig hem."],["z","Så vi BOR här nu? KAOS-TAJM!",0,1]],fx:"KNASTER"},
+ {s:"tradgard",c:["e","v","z"],cap:"En ficklampa tänds i fönstret.",d:[["e","…Är ni hundar?"],["v","Tänk hund. Tänk hund. Tänk hund.","t",1],["v","Voff. Hej. Jag menar… voff.",0,1]]},
+ {s:"tradgard",c:["e","z","v"],d:[["e","Hundar har inte antenner."],["z","Det är… HATTAR!",0,1],["e","Det här är den coolaste natten i hela mitt liv."]],fx:"BOING"},
+ {s:"rum",c:["e","v","z","m"],cap:"Elsas rum. Hemligt gömställe under sängen.",d:[["e","Mamma får inte veta. Hon är allergisk mot hundar. Och mot rymdvarelser, gissar jag."],["v","Varför stirrar den där katten på oss?",0,1]],w:1},
+ {s:"kok",c:["z","v"],cap:"Nästa morgon. Zippo har hittat kylskåpet.",d:[["z","Mat! Det står ”strömming”!"],["v","Zippo. Lägg ner burken. Långsamt.",0,1]],fx:"PFFFSSST"},
+ {s:"dag",c:["z","v","e"],d:[["z","VARFÖR LUKTAR DEN SOM ETT SVART HÅL?!","y"],["e","Vänta! Min Prylometer piper vid trädgårdstomten!",0,1]],fx:"PIIIP",fxl:1},
+ {s:"dag",c:["z","v","e"],cap:"Zippo skallar tomten. Inne i den lyser något lila.",d:[["z","SKÄRVA NUMMER ETT!"],["v","Se där. Allt gick enligt planen.",0,1],["e","Du hade ingen plan."],["v","Jag hade en plan i hjärtat.",0,1]],fx:"KRASCH",w:1},
+ {s:"kontor",c:["s"],cap:"Samtidigt, i en mörk källare under Mossby…",d:[["s","Ett oförklarligt fenomen i Mossby. Äntligen. Den här gången ska ingen skratta åt mig."]],fx:"BLIPP"}
+]},
+{t:"Norrskensvulkanen",sum:"Bröderna smyger med Elsa till skolans vetenskapsmässa. Den nya vikarien är misstänkt lik en agent.",sh:2,panels:[
+ {s:"skola",c:["e","k"],cap:"Mossby skola. Vetenskapsmässan.",d:[["e","Min vulkan vill inte få utbrott. Och Kevin har byggt en ROBOT."],["k","Den kan säga ”hej” på fyra språk.",0,1]]},
+ {s:"skola",c:["v","z"],cap:"I Elsas ryggsäck.",d:[["v","Lugn. Jag har en plan."],["z","Är den bättre än förra planen?",0,1],["v","Förra planen funkade."],["z","Vi KRASCHADE.",0,1],["v","Med stil."]]},
+ {s:"skola",c:["s"],cap:"Hon var inte en helt vanlig vikarie.",d:[["s","Jag är er nya vikarie. Fröken Ståhl. Med h. Helt vanlig lärare. Inga frågor."]],w:1},
+ {s:"skola",c:["s","e"],d:[["s","Vilken intressant ryggsäck. Den… brummar."],["e","Det är min mage. Jag har inte ätit frukost.",0,1]],fx:"BZZZ"},
+ {s:"skola",c:["z","k"],cap:"Zippo rymmer.",d:[["z","Saturnus smakar MARSIPAN!"],["k","Min robot! Min solsystemsmodell!",0,1]],fx:"KRASCH-BANG"},
+ {s:"skola",c:["e","v"],cap:"I skolans prisskåp: ”Mystisk meteorit, hittad i Mossby 1987.”",d:[["e","Prylometern slår i taket!"],["v","Det där är ingen meteorit. Det är vår skärva.",0,1]],fx:"PIP PIP PIP",fxl:1},
+ {s:"skola",c:["v","s"],cap:"Vex klär ut sig. Hans plan nummer 47.",d:[["v","Hej. Jag heter… Vexander. Jag går i sexan."],["s","Du har en svans.",0,1],["v","Det är… modernt."]]},
+ {s:"gympa",c:["z","e"],cap:"Zippo får tag i skärvan, snubblar och tappar den rakt ner i Elsas vulkan.",d:[["z","Oj.","y"]],fx:"KA-BLOOOOM",w:1},
+ {s:"gympa",c:["j","e"],cap:"Lila lava sprutar mot taket och blir till norrsken över hela gympasalen.",d:[["j","Förstapris till Elsa Lind för den magiska norrskensvulkanen!"],["e","Det var… helt enligt planen?",0,1]]},
+ {s:"kontor",c:["s"],d:[["s","Lila päls. Och ett hundhalsband med texten GLORBON-7. Ni kan springa, små hundar. Men ni kan inte gömma er."]]},
+ {s:"rum",c:["v","z"],cap:"Samma kväll. Zippo har somnat på Vex svans.",d:[["v","Två skärvor. Tre kvar."],["v","…Dumma lillebror.","t"]],w:1}
+]},
+{t:"Kanelbullekriget",sum:"Den tredje skärvan sitter i priset för Mossbys stora bulltävling. Bröderna måste lära sig baka på en dag.",sh:3,panels:[
+ {s:"bageri",c:["e","v","z"],cap:"4 oktober. Kanelbullens dag. Bageri Gyllene Kringlan.",d:[["e","Förstapriset är Den Gyllene Kaveln. Och skärvan sitter i handtaget!"],["v","Då vinner vi. Enkelt.",0,1]],w:1},
+ {s:"bageri",c:["z"],cap:"Zippo smakar sin första kanelbulle någonsin.",d:[["z","Vex… jag har sett universums mening. Den är RUND. Och har PÄRLSOCKER."]],fx:"STJÄRN-ÖGON"},
+ {s:"kok",c:["e","v","z"],d:[["e","Kan ni ens baka?"],["v","Vi är en högt avancerad civilisation.",0,1],["z","Vi brände ner ett helt kök på Glorbon-7 med en brödrost.",0,1]]},
+ {s:"kok",c:["v","z","e"],cap:"Övningsrunda ett.",d:[["v","Varför försvinner degen?"],["z","Ingen aning *gomf* alls *gomf*",0,1]],fx:"PUFF",fxl:1},
+ {s:"bageri",c:["g","m"],cap:"Tant Gun Kardemumma. Obesegrad i 30 år. Och hennes katt.",d:[["g","Ingen. Slår. Mina. Bullar."]],w:1},
+ {s:"bageri",c:["m","v"],cap:"Tävlingsdagen. Fröken Mjau byter plats på sockret och saltet.",d:[["v","Katten. Det är alltid katten."]],fx:"MJAU"},
+ {s:"bageri",c:["v","z"],d:[["v","Okej, Zippo… det är du som bestämmer nu."],["z","Säger du att… JAG får köra?!",0,1],["v","Säg det inte så.",0,0]]},
+ {s:"bageri",c:["z","e"],cap:"Sockerrus. Hundra kilometer i timmen.",d:[["z","KAOSBULLEN! Formad som en spiralgalax!","y"]],fx:"FLOFF",w:1},
+ {s:"bageri",c:["g","z"],cap:"Juryn smakar.",d:[["g","Den smakar som… min mormors."],["g","Ni förtjänar kaveln mer än jag, unga… hundar."]]},
+ {s:"bageri",c:["v","z"],d:[["v","Bra jobbat, lillebror."],["z","SÄG DET IGEN!",0,1],["v","Nej."]],fx:"3/5",fxl:1},
+ {s:"natt",c:["s"],cap:"Utanför bageriet står en skåpbil med mörka rutor.",d:[["s","Mmm. Bulle. …Fokus, Gunilla. Ju fler skärvor de samlar, desto starkare signal."]]}
+]},
+{t:"Brorsan i min päls",sum:"En olycka i garaget får bröderna att byta kroppar. De har till solnedgången på sig att hitta skärva nummer fyra.",sh:4,panels:[
+ {s:"garage",c:["v","z"],cap:"Elsas garage. Vex testar tre skärvor på rymdradion.",d:[["z","Får jag trycka?"],["v","Inga knappar. Aldrig. Någonsin.",0,1]]},
+ {s:"blixt",c:["z","v"],cap:"Zippo snubblar på en sladd.",d:[],fx:"BZZZAP",w:1},
+ {s:"garage",c:["z","v"],cap:"Vex vaknar i Zippos kropp. Zippo vaknar i Vex.",d:[["v","Varför har jag så mycket ENERGI? Varför vill jag äta en sko?"],["z","Wow. Jag är LÅNG. Och mina ögonlock är så TUNGA.",0,1]]},
+ {s:"garage",c:["e"],d:[["e","Enligt Prylometern blir bytet permanent vid solnedgången. Om ni inte rör skärva nummer fyra innan dess."],["e","Den sitter fast högst upp i hopptornet i Mossby simhall."]]},
+ {s:"kok",c:["ma","z","v"],cap:"Problem: Elsas mamma har kommit hem tidigt.",d:[["ma","Elsa? Varför studsar hunden i taket?"],["z","Tjena. Jag är sval. Iskall. Ett kylskåp.",0,1]],fx:"BOING BOING",fxl:1},
+ {s:"simhall",c:["v","z"],cap:"Simhallen. Tio meter upp.",d:[["z","Du är rädd för höjder?! Du sa att du inte var rädd för NÅGOT!"],["v","Jag ljög. Storebrorsor ljuger om sånt.",0,1]],w:1},
+ {s:"simhall",c:["v"],cap:"Högst upp i hopptornet.",d:[["v","Hur gör du, Zippo? Hoppar in i allt utan att tänka?"]]},
+ {s:"simhall",c:["z"],d:[["z","Jag tänker visst! Jag tänker: VEX FÅNGAR MIG ALLTID!","y"]]},
+ {s:"simhall",c:["v"],cap:"Vex hoppar och griper skärvan i luften.",d:[["v","KAOS-TAJM!","y"]],fx:"SPLASCH",w:1},
+ {s:"blixt",c:["v","z"],cap:"De är tillbaka i sina egna kroppar. Och kramas.",d:[["v","Det här hände aldrig."],["z","Du kramade mig.",0,1],["v","Jag tog tag i dig. Taktiskt."]],fx:"FZZZT",fxl:1},
+ {s:"natt",c:["m","s"],cap:"Samma natt på staketet. Fröken Mjau trycker på sitt halsband.",d:[["s","Bra jobbat, agent Mjau. Fyra skärvor. Snart har vi dem alla."],["m","Mjau.",0,1]],w:1}
+]},
+{t:"Agent Stål slår till",sum:"Säsongsfinal. Zippo blir kidnappad och Vex måste rädda honom. Den sista skärvan har legat närmare än någon trott.",sh:5,panels:[
+ {s:"natt",c:["z","m"],cap:"En rad med kanelbullar leder från Elsas sovrum och ut i mörkret…",d:[["z","En bulle… och en till… och en till…"]],fx:"SCHWUNK",w:1},
+ {s:"rum",c:["v"],cap:"Morgonen efter. Ett tomt täcke, ett tassavtryck och en lapp: SBOF.",d:[["v","Ingen. Tar. Min. Lillebror.","y"]]},
+ {s:"rum",c:["e","v"],d:[["e","Vi behöver en plan."],["v","Nej. Vi behöver KAOS.",0,1],["e","Du säger aldrig så."],["v","Jag har aldrig varit så här arg.",0,1]]},
+ {s:"bas",c:["s","z"],cap:"SBOF:s hemliga bas, under Mossbys återvinningscentral.",d:[["s","1987 såg jag ett UFO över Mossby. Alla skrattade. Ingen kommer att skratta längre."],["z","Jag skrattar inte. Jag är bara lite hungrig.",0,1]],w:1},
+ {s:"bas",c:["v","e"],cap:"Vex gör för första gången precis som sin lillebror. Han springer rakt in och river allt.",d:[["e","Prylometern på bakåtläge! Alla säkringar går!"]],fx:"KAOS!"},
+ {s:"bas",c:["s","v"],cap:"Agentens termos börjar lysa lila.",d:[["v","Din termos… där är den femte skärvan!"],["s","Den har hållit mitt kaffe varmt sedan 1987.",0,1]],fx:"GLOW",fxl:1},
+ {s:"bas",c:["z","m"],cap:"Inne i buren delar Zippo sin sista bulle med Fröken Mjau.",d:[["z","Här. Du ser ut som någon som aldrig får dela."],["m","…Mjau.",0,1]],fx:"KLICK"},
+ {s:"holo",c:["v","z","e"],cap:"Mjau öppnar låset. Fem skärvor möts. Kaoskristallen är hel igen.",d:[],fx:"VOOOMMM",w:1},
+ {s:"bas",c:["s","z","v"],d:[["s","Ta den. Ingen skulle tro på mig ändå."],["z","Selfie! Nu har du BEVIS.",0,1],["v","Och vi tror på dig, Gunilla.",0,1]]},
+ {s:"natt",c:["e","v","z"],cap:"Elsas trädgård. Kaoskometen är lagad och kan flyga hem.",d:[["v","Hem… eller hem?"],["z","Här finns kanelbullar.",0,1],["v","Och Elsa. Vi stannar."],["e","JAAA!","y"]],w:1},
+ {s:"holo",c:["mo","v","z"],cap:"Plötsligt piper kristallen. Ett hologram tänds.",d:[["mo","VEX! ZIPPO! Det här är MAMMA. Vem har kraschat familjens rymdskepp?!","y"],["v","HAN!",0,1],["z","HAN!",0,1]],fx:"BLIIIP",w:1}
+]}
+];
+
+const PROMPTS={
+ style:"Bright cartoon comic panel in the exact style of the reference image: bold black outlines, flat cel shading, lime-green and purple palette, glossy expressive eyes. Characters: VEX – tall slim grey-green alien dog with two antennae, droopy ears, sleepy smug purple eyes, sharp grin, long black hoodie with a glowing green alien-head logo, white gloves, white sneakers. ZIPPO – small orange-brown alien fox-dog with spiky purple hair, two orange antennae, huge sparkling star eyes, pink t-shirt, ripped grey shorts, purple sneakers. No text, no speech bubbles.",
+ eps:[
+  ["Avsnitt 1 – omslag","Vex and Zippo crawling out of a smoking crashed round purple spaceship in a Swedish suburban garden at night, a broken garden gnome, a 11-year-old girl with glasses and a flashlight peeking from a red wooden house, a white cat staring from the fence, a glowing purple crystal shard."],
+  ["Avsnitt 2 – omslag","School science fair gym hall, a homemade volcano erupting purple lava that turns into northern lights across the ceiling, Zippo flying through the air with a planet model in his mouth, Vex in his hoodie pretending to be a student, a suspicious woman in a trench coat and sunglasses holding a thermos."],
+  ["Avsnitt 3 – omslag","Cozy Swedish bakery full of cinnamon buns, flour explosion, Zippo with a sugar rush holding a giant spiral-galaxy shaped cinnamon bun, Vex covered in flour, an intense 82-year-old grandma baker with a golden rolling pin trophy, a sneaky white cat knocking over a salt jar."],
+  ["Avsnitt 4 – omslag","Indoor public swimming pool, Vex standing terrified at the top of a 10-meter diving tower holding a glowing purple crystal, Zippo cheering from the water below, purple body-swap lightning swirling between them."],
+  ["Avsnitt 5 – omslag","Secret underground agency base with blinking computers, Zippo in a glass cage sharing a cinnamon bun with a white cat, Vex bursting through the door with glowing green chaos energy, a woman agent with a glowing purple thermos, a giant green hologram of their angry alien mother looming above."]
+ ]};
+
+const $=s=>document.querySelector(s);
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function avatar(k){
+  const p=P[k];
+  if(IMG[k]) return `<img class="av" src="${IMG[k]}" alt="${p.n}">`;
+  return `<span class="av" style="background:${p.bg}" aria-label="${p.n}">${p.i}</span>`;
+}
+
+$("#cast").innerHTML=CAST.map(c=>`<div class="card${c.main?" main":""}">${avatar(c.k)}<div><div class="role">${c.role}</div><h3>${P[c.k].n}</h3><p>${c.d}</p>${c.q?`<p class="quote">${c.q}</p>`:""}</div></div>`).join("");
+
+$("#tabs").innerHTML=EP.map((e,i)=>`<button role="tab" id="tab-${i+1}" aria-selected="false" data-i="${i}"><span>AVSNITT ${i+1}</span>${e.t}</button>`).join("");
+$("#tabs").addEventListener("click",ev=>{const b=ev.target.closest("button");if(b)go(+b.dataset.i,true)});
+
+function bubble(d){
+  const [who,text,type,right]=d;
+  const cls=["b"];if(type==="t")cls.push("t");if(type==="y")cls.push("y");if(right)cls.push("r");
+  return `<div class="${cls.join(" ")}"><span class="who">${P[who].n}</span>${esc(text)}</div>`;
+}
+function panel(p,n){
+  return `<div class="panel s-${p.s}${p.w?" w":""}">
+    ${p.cap?`<div class="cap">${esc(p.cap)}</div>`:""}
+    <div class="bubbles">${p.d.map(bubble).join("")}</div>
+    ${p.fx?`<div class="fx${p.fxl?" l":""}" aria-hidden="true">${p.fx}</div>`:""}
+    <div class="stage">${p.c.map(k=>`<span class="chip">${avatar(k)}<small>${P[k].n}</small></span>`).join("")}</div>
+    <span class="num">${n}</span></div>`;
+}
+function go(i,push){
+  const e=EP[i];
+  document.querySelectorAll("#tabs button").forEach((b,j)=>b.setAttribute("aria-selected",j===i));
+  const shards=[1,2,3,4,5].map(n=>`<span class="shard${n<=e.sh?" on":""}"></span>`).join("");
+  const last=i===EP.length-1;
+  $("#episode").innerHTML=`
+    <div class="ep-head"><div><div class="no">Avsnitt ${i+1} av 5</div><h2>${e.t}</h2><p>${e.sum}</p></div>
+      <div class="shards" title="Kaosskärvor hittade">${shards} ${e.sh}/5 SKÄRVOR</div></div>
+    <div class="page">${e.panels.map((p,n)=>panel(p,n+1)).join("")}
+      <div class="end"><span>${last?"Slut på säsong 1… eller?":"Fortsättning följer!"}</span>
+      ${last?`<button data-go="0">Läs från början</button>`:`<button data-go="${i+1}">Avsnitt ${i+2}: ${EP[i+1].t} →</button>`}</div></div>`;
+  $("#episode .end button").onclick=ev=>{go(+ev.target.dataset.go,true);$("#ep-h").scrollIntoView({behavior:"smooth"})};
+  if(push){try{history.replaceState(null,"","#avsnitt-"+(i+1))}catch(_){location.hash="avsnitt-"+(i+1)}}
+}
+function fromHash(){const m=location.hash.match(/avsnitt-(\d)/);go(m?Math.min(4,Math.max(0,m[1]-1)):0,false)}
+window.addEventListener("hashchange",fromHash);fromHash();
+
+function pbox(title,text){return `<div class="pbox"><h3>${title}</h3><pre>${esc(text)}</pre><button type="button">Kopiera prompt</button></div>`}
+$("#prompts").innerHTML=pbox("Stilprompt (använd alltid först)",PROMPTS.style)+PROMPTS.eps.map(([t,x])=>pbox(t,PROMPTS.style+"\n\nScene: "+x)).join("");
+$("#prompts").addEventListener("click",ev=>{
+  const b=ev.target.closest("button");if(!b)return;const pre=b.previousElementSibling;
+  navigator.clipboard.writeText(pre.textContent).then(()=>{b.textContent="Kopierad!"}).catch(()=>{const r=document.createRange();r.selectNodeContents(pre);const s=getSelection();s.removeAllRanges();s.addRange(r);b.textContent="Markerad – tryck Ctrl+C"});
+});
+</script>
